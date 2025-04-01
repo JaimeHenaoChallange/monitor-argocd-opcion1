@@ -33,4 +33,4 @@ spec:
                 secretKeyRef:
                   name: monitor-argocd-env
                   key: ARGOCD_PASSWORD
-          restartPolicy: Never
+          restartPolicy: Never 
