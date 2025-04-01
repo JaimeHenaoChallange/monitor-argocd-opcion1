@@ -1,31 +1,36 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Release.Name }}
-  labels:
-    app.kubernetes.io/name: {{ .Chart.Name }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+  name: monitor-argocd
+  namespace: default
 spec:
-  schedule: "{{ .Values.cronSchedule }}" # Cronograma definido en values.yaml
-  successfulJobsHistoryLimit: 3 # Mantener solo los últimos 3 pods exitosos
-  failedJobsHistoryLimit: 1     # Mantener solo el último pod fallido
+  schedule: "*/5 * * * *" # Ejecutar cada 5 minutos
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
-        metadata:
-          labels:
-            app.kubernetes.io/name: {{ .Chart.Name }}
-            app.kubernetes.io/instance: {{ .Release.Name }}
         spec:
           containers:
-          - name: {{ .Chart.Name }}
-            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-            imagePullPolicy: {{ .Values.image.pullPolicy }}
+          - name: monitor-argocd
+            image: jaimehenao8126/monitor-argocd-opcion1:latest
+            imagePullPolicy: Always
             env:
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: monitor-argocd-env
+                  key: SLACK_WEBHOOK_URL
             - name: ARGOCD_SERVER
-              value: "{{ .Values.env.ARGOCD_SERVER }}"
+              value: "argocd-server.argocd.svc.cluster.local:443"
             - name: ARGOCD_USERNAME
-              value: "{{ .Values.env.ARGOCD_USERNAME }}"
+              valueFrom:
+                secretKeyRef:
+                  name: monitor-argocd-env
+                  key: ARGOCD_USERNAME
             - name: ARGOCD_PASSWORD
-              value: "{{ .Values.env.ARGOCD_PASSWORD }}"
+              valueFrom:
+                secretKeyRef:
+                  name: monitor-argocd-env
+                  key: ARGOCD_PASSWORD
           restartPolicy: Never
