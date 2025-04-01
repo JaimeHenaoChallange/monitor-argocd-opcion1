@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.log
+
+# Docker
+Docker/.env
+Docker/.env.*
+Dockerfile~
+
+# Helm
+.helmignore
+*.tgz
+
+# Git
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node.js (si aplica)
+node_modules/
+
+# General
+*.bak
+*.tmp
+*.temp
+*.lock
