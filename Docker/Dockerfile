@@ -14,9 +14,10 @@ RUN apt-get update && apt-get install -y \
 # Copiar los archivos necesarios al contenedor
 COPY monitor_argocd.py /app/
 COPY requirements.txt /app/
+COPY .env /app/
 
 # Instalar las dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Comando para ejecutar el script
-CMD ["python", "monitor_argocd.py"]
+CMD ["python", "monitor_argocd.py"]º
