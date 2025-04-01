@@ -7,12 +7,12 @@ spec:
   project: poc
   source:
     repoURL: https://github.com/JaimeHenaoChallange/monitor-argocd-opcion1.git
-    targetRevision: HEAD
-    path: monitor-argocd-opcion1
+    targetRevision: main
+    path: script-py/monitor-argocd-opcion1
   destination:
     server: https://kubernetes.default.svc
     namespace: poc
   syncPolicy:
     automated:
-      prune: true       # Elimina recursos que ya no están en el repositorio
-      selfHeal: true    # Repara recursos que se desvíen del estado deseado
+      prune: true
+      selfHeal: true
