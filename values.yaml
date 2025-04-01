@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: jaimehenao8126/monitor-argocd-opcion1
+  tag: latest
+  pullPolicy: IfNotPresent
+
+env:
+  SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
+  ARGOCD_USERNAME: "admin"
+  ARGOCD_PASSWORD: "Thomas#1109"
+
+resources: {}
