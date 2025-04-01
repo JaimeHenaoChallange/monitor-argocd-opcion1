@@ -11,7 +11,7 @@ on:
 env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME_JAIME }}
   DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD_JAIME }}
-  IMAGE_NAME: poc-app-2
+  IMAGE_NAME: monitor-argocd-opcion1
 
 jobs:
   build-and-deploy:
