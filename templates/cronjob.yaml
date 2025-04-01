@@ -21,7 +21,11 @@ spec:
           - name: {{ .Chart.Name }}
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
-            envFrom:
-            - secretRef:
-                name: monitor-argocd-env # Referencia al Secret con las variables de entorno
+            env:
+            - name: ARGOCD_SERVER
+              value: "{{ .Values.env.ARGOCD_SERVER }}"
+            - name: ARGOCD_USERNAME
+              value: "{{ .Values.env.ARGOCD_USERNAME }}"
+            - name: ARGOCD_PASSWORD
+              value: "{{ .Values.env.ARGOCD_PASSWORD }}"
           restartPolicy: Never

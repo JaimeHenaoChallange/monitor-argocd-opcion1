@@ -10,14 +10,15 @@ load_dotenv()
 
 # Configuración del Webhook de Slack y credenciales de ArgoCD desde variables de entorno
 SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
+ARGOCD_SERVER = os.getenv("ARGOCD_SERVER", "argocd-server.argocd.svc.cluster.local:443")
 ARGOCD_USERNAME = os.getenv("ARGOCD_USERNAME", "admin")
 ARGOCD_PASSWORD = os.getenv("ARGOCD_PASSWORD")
 
 # Validar que las variables sensibles estén configuradas
 if not SLACK_WEBHOOK_URL:
     raise ValueError("❌ La variable de entorno SLACK_WEBHOOK_URL no está configurada.")
-if not ARGOCD_PASSWORD:
-    raise ValueError("❌ La variable de entorno ARGOCD_PASSWORD no está configurada.")
+if not ARGOCD_SERVER or not ARGOCD_USERNAME or not ARGOCD_PASSWORD:
+    raise ValueError("❌ Faltan variables de entorno necesarias para conectarse a ArgoCD.")
 
 # Función para enviar notificación a Slack
 def send_slack_notification(app_name, status, attempts, action=""):
@@ -58,9 +59,10 @@ def send_slack_notification(app_name, status, attempts, action=""):
 def argocd_login():
     try:
         result = subprocess.run(
-            ["argocd", "login", "localhost:8080", "--username", ARGOCD_USERNAME, "--password", ARGOCD_PASSWORD, "--insecure"],
+            ["argocd", "login", ARGOCD_SERVER, "--username", ARGOCD_USERNAME, "--password", ARGOCD_PASSWORD, "--insecure"],
             capture_output=True, text=True, check=True
         )
+        print("✅ Autenticación exitosa en ArgoCD.")
     except subprocess.CalledProcessError as e:
         print(f"❌ Error al autenticar en ArgoCD: {e}")
         print(f"Detalles del error: {e.stderr}")

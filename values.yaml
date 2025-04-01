@@ -12,3 +12,8 @@ serviceAccount:
   name: ""
 
 resources: {}
+
+env:
+  ARGOCD_SERVER: "argocd-server.argocd.svc.cluster.local:443"
+  ARGOCD_USERNAME: "admin"
+  ARGOCD_PASSWORD: "Thomas#1109"
