@@ -38,7 +38,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -f ./script-py/monitor-argocd-opcion1/Docker/Dockerfile ./script-py/monitor-argocd-opcion1
+          docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -f ./monitor-argocd-opcion1/Docker/Dockerfile ./script-py/monitor-argocd-opcion1
 
       - name: Push Docker image
         run: |
@@ -46,7 +46,7 @@ jobs:
 
       - name: Update image in ArgoCD application
         run: |
-          sed -i 's|image:.*|image: '${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'|' ./script-py/monitor-argocd-opcion1/values.yaml
+          sed -i 's|image:.*|image: '${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'|' ./monitor-argocd-opcion1/values.yaml
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add ./script-py/monitor-argocd-opcion1/values.yaml
