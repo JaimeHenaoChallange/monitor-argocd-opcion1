@@ -14,5 +14,5 @@ spec:
     namespace: poc
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: true       # Elimina recursos que ya no están en el repositorio
+      selfHeal: true    # Repara recursos que se desvíen del estado deseado
