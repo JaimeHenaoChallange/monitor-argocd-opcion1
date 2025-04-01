@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitor-argocd-opcion1
+  namespace: argocd
+spec:
+  project: poc
+  source:
+    repoURL: https://github.com/JaimeHenaoChallange/monitor-argocd-opcion1.git
+    targetRevision: HEAD
+    path: monitor-argocd-opcion1
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: poc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
