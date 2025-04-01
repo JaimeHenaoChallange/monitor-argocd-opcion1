@@ -10,7 +10,7 @@ load_dotenv()
 
 # Configuración del Webhook de Slack y credenciales de ArgoCD desde variables de entorno
 SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
-ARGOCD_USERNAME = os.getenv("ARGOCD_USERNAME", "admin")  # Valor por defecto: "admin"
+ARGOCD_USERNAME = os.getenv("ARGOCD_USERNAME", "admin")
 ARGOCD_PASSWORD = os.getenv("ARGOCD_PASSWORD")
 
 # Validar que las variables sensibles estén configuradas
