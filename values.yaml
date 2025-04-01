@@ -17,3 +17,13 @@ env:
   ARGOCD_SERVER: "argocd-server.argocd.svc.cluster.local:443"
   ARGOCD_USERNAME: "admin"
   ARGOCD_PASSWORD: "Thomas#1109"
+
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+
+source:
+  repoURL: https://github.com/JaimeHenaoChallange/monitor-argocd-opcion1.git
+  targetRevision: main
+  path: script-py/monitor-argocd-opcion1
