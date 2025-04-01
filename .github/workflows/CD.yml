@@ -44,12 +44,12 @@ jobs:
         run: |
           docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-      - name: Update image in ArgoCD application
+      - name: Update image tag in values.yaml
         run: |
-          sed -i 's|image:.*|image: '${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'|' ./monitor-argocd-opcion1/values.yaml
+          sed -i 's|tag:.*|tag: '${{ github.sha }}'|' ./values.yaml
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add ./script-py/monitor-argocd-opcion1/values.yaml
+          git add ./values.yaml
           git commit -m "Update image in values.yaml to ${{ github.sha }}" || echo "No changes to commit"
           git push
 
@@ -62,4 +62,4 @@ jobs:
           curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
           chmod +x /usr/local/bin/argocd
           argocd login $ARGOCD_SERVER --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD --insecure
-          argocd app sync monitor-argocd-opcion1 
+          argocd app sync monitor-argocd-opcion1
