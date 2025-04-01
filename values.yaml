@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: jaimehenao8126/monitor-argocd-opcion1
-  tag: c99827a1b7ce1d4c0b6435286aa82fca724c3126
+  tag: 4377b4796582073b74a1ceaea89f95dd9a6942b6
   pullPolicy: IfNotPresent
 
 cronSchedule: "*/5 * * * *" # Ejecutar cada 5 minutos
